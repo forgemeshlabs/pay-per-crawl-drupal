@@ -1,0 +1,39 @@
+pay_per_crawl.settings_form:
+  path: '/admin/config/services/pay-per-crawl'
+  defaults:
+    _form: '\Drupal\pay_per_crawl\Form\SettingsForm'
+    _title: 'Pay-per-Crawl'
+  requirements:
+    _permission: 'administer pay per crawl'
+
+pay_per_crawl.report:
+  path: '/admin/reports/pay-per-crawl'
+  defaults:
+    _controller: '\Drupal\pay_per_crawl\Controller\ReportController::report'
+    _title: 'Pay-per-Crawl'
+  requirements:
+    _permission: 'administer pay per crawl'
+
+pay_per_crawl.manifest:
+  path: '/.well-known/x402.json'
+  defaults:
+    _controller: '\Drupal\pay_per_crawl\Controller\DiscoveryController::serve'
+    doc: '/.well-known/x402.json'
+  requirements:
+    _access: 'TRUE'
+
+pay_per_crawl.llms:
+  path: '/llms.txt'
+  defaults:
+    _controller: '\Drupal\pay_per_crawl\Controller\DiscoveryController::serve'
+    doc: '/llms.txt'
+  requirements:
+    _access: 'TRUE'
+
+pay_per_crawl.agents:
+  path: '/agents.txt'
+  defaults:
+    _controller: '\Drupal\pay_per_crawl\Controller\DiscoveryController::serve'
+    doc: '/agents.txt'
+  requirements:
+    _access: 'TRUE'

@@ -1,0 +1,11 @@
+pay_per_crawl.settings_form:
+  title: 'Pay-per-Crawl'
+  description: 'Charge AI crawlers per page with x402 / MPP micropayments.'
+  parent: system.admin_config_services
+  route_name: pay_per_crawl.settings_form
+
+pay_per_crawl.report:
+  title: 'Pay-per-Crawl'
+  description: 'Bot traffic and revenue.'
+  parent: system.admin_reports
+  route_name: pay_per_crawl.report

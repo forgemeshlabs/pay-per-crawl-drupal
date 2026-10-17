@@ -1,0 +1,25 @@
+mode: monitor
+pay_to: ''
+price_usd: 0.01
+facilitator_url: ''
+facilitator_auth: ''
+class_policy:
+  search: free
+  social: free
+  monitor: free
+  seo: paid
+  ai: paid
+  automation: paid
+  bot: paid
+bot_overrides: {}
+allow_paths: []
+trusted_ip_header: ''
+log_humans: true
+discovery: true
+publish_contact: false
+site_url: ''
+retention_days: 90
+mpp_secret: ''
+ip_salt: ''
+pro_key: ''
+pro_listed: true

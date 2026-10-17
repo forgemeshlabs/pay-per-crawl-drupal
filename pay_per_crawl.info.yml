@@ -1,0 +1,6 @@
+name: 'Pay-per-Crawl'
+type: module
+description: 'Charge AI crawlers per page with x402 and MPP USDC micropayments on Base, paid straight to your wallet. Humans and verified search engines read free. Bot analytics included.'
+package: 'Web services'
+core_version_requirement: ^10.1 || ^11
+configure: pay_per_crawl.settings_form

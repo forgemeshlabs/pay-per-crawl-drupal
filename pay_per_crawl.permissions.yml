@@ -1,0 +1,4 @@
+administer pay per crawl:
+  title: 'Administer Pay-per-Crawl'
+  description: 'Change payment settings (wallet, price, policy) and read bot analytics.'
+  restrict access: true

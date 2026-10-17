@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Install, schema and uninstall hooks for Pay-per-Crawl.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function pay_per_crawl_schema(): array {
+  $schema['pay_per_crawl_hits'] = [
+    'description' => 'One row per classified request.',
+    'fields' => [
+      'id' => ['type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE],
+      'ts' => ['description' => 'Unix timestamp (UTC).', 'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0],
+      'ua_class' => ['type' => 'varchar', 'length' => 16, 'not null' => TRUE, 'default' => ''],
+      'bot_name' => ['type' => 'varchar', 'length' => 64, 'not null' => TRUE, 'default' => ''],
+      'verified' => ['description' => '1 verified, 0 failed, NULL not applicable.', 'type' => 'int', 'size' => 'tiny', 'not null' => FALSE],
+      'method' => ['type' => 'varchar', 'length' => 8, 'not null' => TRUE, 'default' => 'GET'],
+      'path' => ['type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => '/'],
+      'status' => ['description' => 'passed|monitor|unpaid|rejected|settle_failed|paid|blocked', 'type' => 'varchar', 'length' => 16, 'not null' => TRUE, 'default' => ''],
+      'rail' => ['type' => 'varchar', 'length' => 8, 'not null' => TRUE, 'default' => ''],
+      'amount_units' => ['description' => 'USDC base units (6 decimals).', 'type' => 'int', 'size' => 'big', 'not null' => TRUE, 'default' => 0],
+      'tx_hash' => ['type' => 'varchar', 'length' => 80, 'not null' => TRUE, 'default' => ''],
+      'payer' => ['type' => 'varchar', 'length' => 48, 'not null' => TRUE, 'default' => ''],
+      'reason' => ['type' => 'varchar', 'length' => 64, 'not null' => TRUE, 'default' => ''],
+      'ip_hash' => ['description' => 'Daily-salted hash, never the IP.', 'type' => 'varchar', 'length' => 16, 'not null' => TRUE, 'default' => ''],
+      'ua' => ['type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'ts' => ['ts'],
+      'bot_name' => ['bot_name'],
+      'status' => ['status'],
+      'ua_class' => ['ua_class'],
+    ],
+  ];
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function pay_per_crawl_install(): void {
+  \Drupal::configFactory()->getEditable('pay_per_crawl.settings')
+    ->set('mpp_secret', bin2hex(random_bytes(32)))
+    ->set('ip_salt', bin2hex(random_bytes(16)))
+    ->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function pay_per_crawl_uninstall(): void {
+  \Drupal::state()->deleteMultiple(['pay_per_crawl.pro', 'pay_per_crawl.last_prune', 'pay_per_crawl.last_pro']);
+}

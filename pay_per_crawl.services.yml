@@ -1,0 +1,29 @@
+services:
+  pay_per_crawl.cache:
+    class: Drupal\pay_per_crawl\DrupalCache
+    arguments: ['@keyvalue.expirable']
+
+  pay_per_crawl.hit_store:
+    class: Drupal\pay_per_crawl\DrupalHitStore
+    arguments: ['@database']
+
+  pay_per_crawl.gate_factory:
+    class: Drupal\pay_per_crawl\GateFactory
+    arguments: ['@config.factory', '@pay_per_crawl.cache', '@pay_per_crawl.hit_store', '@state']
+
+  # A middleware, not a kernel.request subscriber: Drupal's page cache is itself a middleware
+  # (priority 200) and answers anonymous requests before kernel.request ever fires, so a
+  # subscriber would let bots read every cached page for free. Priority 250 runs before it.
+  pay_per_crawl.middleware:
+    class: Drupal\pay_per_crawl\Http\PayPerCrawlMiddleware
+    arguments: ['@pay_per_crawl.gate_factory']
+    tags:
+      - { name: http_middleware, priority: 250 }
+
+  pay_per_crawl.cron:
+    class: Drupal\pay_per_crawl\CronRunner
+    arguments: ['@pay_per_crawl.gate_factory', '@pay_per_crawl.hit_store', '@state', '@config.factory', '@logger.channel.pay_per_crawl']
+
+  logger.channel.pay_per_crawl:
+    parent: logger.channel_base
+    arguments: ['pay_per_crawl']

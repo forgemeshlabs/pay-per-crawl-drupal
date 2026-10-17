@@ -1,0 +1,72 @@
+pay_per_crawl.settings:
+  type: config_object
+  label: 'Pay-per-Crawl settings'
+  mapping:
+    mode:
+      type: string
+      label: 'Mode (monitor or gate)'
+    pay_to:
+      type: string
+      label: 'Wallet address'
+    price_usd:
+      type: float
+      label: 'Price per page in USD'
+    facilitator_url:
+      type: string
+      label: 'Facilitator URL'
+    facilitator_auth:
+      type: string
+      label: 'Facilitator Authorization header'
+    class_policy:
+      type: mapping
+      label: 'Policy per crawler class'
+      mapping:
+        search: { type: string, label: 'Search engines' }
+        social: { type: string, label: 'Social previews' }
+        monitor: { type: string, label: 'Monitors' }
+        seo: { type: string, label: 'SEO crawlers' }
+        ai: { type: string, label: 'AI crawlers' }
+        automation: { type: string, label: 'Automation' }
+        bot: { type: string, label: 'Unknown bots' }
+    bot_overrides:
+      type: sequence
+      label: 'Per-bot overrides'
+      sequence:
+        type: string
+        label: 'Policy'
+    allow_paths:
+      type: sequence
+      label: 'Never-gated path prefixes'
+      sequence:
+        type: string
+        label: 'Path prefix'
+    trusted_ip_header:
+      type: string
+      label: 'Trusted client IP header'
+    log_humans:
+      type: boolean
+      label: 'Log human page views'
+    discovery:
+      type: boolean
+      label: 'Serve discovery documents'
+    publish_contact:
+      type: boolean
+      label: 'Publish the site email in the manifest'
+    site_url:
+      type: string
+      label: 'Canonical site URL'
+    retention_days:
+      type: integer
+      label: 'Hit retention in days'
+    mpp_secret:
+      type: string
+      label: 'MPP signing secret'
+    ip_salt:
+      type: string
+      label: 'IP hash salt'
+    pro_key:
+      type: string
+      label: 'Pro license key'
+    pro_listed:
+      type: boolean
+      label: 'List in the Pro directory'

@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Pay-per-Crawl: charge AI crawlers per page with x402 / MPP micropayments.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function pay_per_crawl_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name === 'help.page.pay_per_crawl') {
+    return '<p>' . t('Answers HTTP 402 to AI crawlers and automation until they pay in USDC on Base (x402 v1/v2 and MPP). Payments settle straight to your wallet. Humans and verified search engines read free. Configure at /admin/config/services/pay-per-crawl.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function pay_per_crawl_cron() {
+  \Drupal::service('pay_per_crawl.cron')->run();
+}
