@@ -1,6 +1,10 @@
 # ForgeMesh Pay-per-Crawl for Drupal
 
-Drupal 10 and 11 module that charges AI crawlers and scrapers per page with [x402](https://x402.org) (v1 and v2) and MPP USDC micropayments on Base. Humans and verified search engines read free; bots get an HTTP `402 Payment Required` until they pay, and the money goes straight to **your** wallet.
+**Know who crawls your site. Charge the ones that can pay.**
+
+Pay-per-Crawl shows you every AI crawler, SEO crawler and script that fetches your pages, verifies the real search engines by reverse DNS so SEO is untouched, and lets you answer everything else with a standard HTTP 402 price in USDC on Base, paid to your own wallet. Be clear about what pays today: x402-capable agents do; the big AI labs' crawlers (GPTBot, ClaudeBot, PerplexityBot and friends) do not yet pay anyone per page, and they simply get no content from a charging site. Until they do, this is an honest bot ledger with the price already on the door. You see who takes what, you can block or charge any of it, and when a crawler does pay, it goes straight to you. Nobody in between holds the money.
+
+This is a Drupal 10 and 11 module using [x402](https://x402.org) (v1 and v2) and MPP. Humans and verified search engines read free; bots get an HTTP `402 Payment Required` until they pay.
 
 - Config form at `/admin/config/services/pay-per-crawl`, bot report at `/admin/reports/pay-per-crawl`
 - Discovery routes: `/.well-known/x402.json`, `/llms.txt` (newest published nodes), `/agents.txt`
