@@ -32,7 +32,7 @@ final class SettingsForm extends ConfigFormBase {
       '#type' => 'radios',
       '#title' => $this->t('Mode'),
       '#options' => [
-        'monitor' => $this->t('Monitor: classify and log, never charge (shows what you would have earned)'),
+        'monitor' => $this->t('Monitor: classify and log, never charge (shows which bots you would have charged)'),
         'gate' => $this->t('Gate: answer HTTP 402 to bots until they pay'),
       ],
       '#default_value' => $c->get('mode'),
